@@ -9,10 +9,10 @@ const instaSchema = new mongoose.Schema({
         required : true,
         Ref : 'User'
     },
-    profile: [],
-    posts : [],
-    scheduledpost : [],
-    postsdone:[]
+    profile: { type : Object },
+    posts : { type : Object },
+    scheduledpost : { type : Object },
+    postsdone:{ type : Object }
     
 }, { 
     timestamps : true
