@@ -76,13 +76,15 @@ instaroutes.get('/logout', async (req,res)=>{
  instaroutes.get('/post', async (req,res)=>{
     try{
         await client.getProfile()
-        const photo = 'https://thumbs-prod.si-cdn.com/P4Smi9MthEBXH7pdW8Y-bvwR6ts=/1072x720/filters:no_upscale()/https://public-media.si-cdn.com/filer/04/8e/048ed839-a581-48af-a0ae-fac6fec00948/gettyimages-168346757_web.jpg'
+        const photo = 'https://cdn.wallpapersafari.com/1/17/ZMBC10.jpg'
         await client.uploadPhoto({ photo, caption: 'Nature Pic', post: 'feed' })
+        res.send({"message" : "successfully posted"})
     }
     catch(e){
         console.log(e)
+        res.send({"error" : e.message})
     }
-   res.send({"message" : "successfully posted"})
+   
  })
 
  instaroutes.post('/storedata', async (req,res)=>{
