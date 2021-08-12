@@ -76,8 +76,9 @@ instaroutes.get('/logout', async (req,res)=>{
  instaroutes.get('/post', async (req,res)=>{
     try{
         await client.getProfile()
-        const photo = 'https://cdn.wallpapersafari.com/1/17/ZMBC10.jpg'
-        await client.uploadPhoto({ photo, caption: 'Nature Pic', post: 'feed' })
+        // var buf = Buffer.from(b64string, 'base64');
+        // var buf = _base64ToArrayBuffer(b64string)
+        await client.uploadPhoto({ photo: b64string, caption: 'Nature Pic', post: 'feed' })
         res.send({"message" : "successfully posted"})
     }
     catch(e){
