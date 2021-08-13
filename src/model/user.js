@@ -12,7 +12,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required : true,
         trim : true,
-        unique:true,
         lowercase: true,
         validate : (value)=>{
             if(!validator.isEmail(value)){
@@ -29,6 +28,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "https://cahsi.utep.edu/wp-content/uploads/kisspng-computer-icons-user-clip-art-user-5abf13db5624e4.1771742215224718993529.png"
     },
+    provider :{
+        type :String,
+        default : "EmailPassword"
+    },
     
     token: {type: String}
     
@@ -41,7 +44,6 @@ userSchema.methods.toJSON= function () {
     const userObject = user.toObject()
 
     delete userObject.password
-    delete userObject.token
 
     return userObject
 }

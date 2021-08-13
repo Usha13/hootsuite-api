@@ -10,6 +10,10 @@ userroutes.post('/emailsignup', async (req,res)=>{
         if(!username || !email || !password){
             return res.status(400).json({error: "All fields are required"})
         }
+        const sameuser = await User.findOne({email : req.body.email , provider : "EmailPassword"})
+        if(sameuser){
+            return res.status(200).json({error: "User already exists"})
+        }
         const hashpsw = await bcrypt.hash(password, 10)
         const user = await new User({
             username,
@@ -20,6 +24,23 @@ userroutes.post('/emailsignup', async (req,res)=>{
         console.log(token)
         res.status(201).json({user, token})
     } catch (err) {
+        res.status(400).json({error : err.message})
+    }
+})
+
+userroutes.post('/googlesignup', async (req,res)=>{
+    try {
+
+        const user = await User.findOne({email : req.body.email , provider : "Google"})
+        if(user){
+            return res.status(200).json(user)
+        }
+        console.log(req.body)
+        const saveduser = await new User(req.body).save()
+        console.log(saveduser)
+        res.status(201).json({user: saveduser})
+    } catch (err) {
+        console.log(err)
         res.status(400).json({error : err.message})
     }
 })

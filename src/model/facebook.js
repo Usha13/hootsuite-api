@@ -1,8 +1,4 @@
 const mongoose = require("mongoose")
-const jwt = require("jsonwebtoken")
-const validator = require("validator")
-const fbroutes = require("../routes/instagram")
-
 
 const fbSchema = new mongoose.Schema({
     userid : {
@@ -13,13 +9,16 @@ const fbSchema = new mongoose.Schema({
     profile: { type : Object },
     posts : { type : Object },
     scheduledpost : { type : Object },
-    postsdone:{ type : Object }
-    
+    postsdone:{ type : Object },
+    status: {
+        type: String,
+        default: "active"
+    }
 }, { 
     timestamps : true
 })
 
 
-const Instagram = mongoose.model('Instagram', instaSchema)
+const Facebook = mongoose.model('Facebook', fbSchema)
 
-module.exports = Instagram
+module.exports = Facebook
